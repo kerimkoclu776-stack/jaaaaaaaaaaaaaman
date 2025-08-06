@@ -1,26 +1,60 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>Audio Player für Stimme und Beat</title>
+  <meta charset="UTF-8">
+  <title>Audio Spieler</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+    }
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1em 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Audio Player</h1>
+  <h1>Audio Player Beispiel</h1>
 
-  <section>
+  <div class="player">
     <h2>Stimme</h2>
-    <audio controls>
-      <source src="stimme.mp3" type="audio/mpeg" />
-      Dein Browser unterstützt das Audio-Tag nicht.
+    <audio id="voicePlayer" controls src="stimme.mp3">
+      Ihr Browser unterstützt das Audio-Element nicht.
     </audio>
-  </section>
+    <input id="voiceUpload" type="file" accept="audio/mpeg">
+  </div>
 
-  <section>
+  <div class="player">
     <h2>Beat</h2>
-    <audio controls>
-      <source src="beat.mp3" type="audio/mpeg" />
-      Dein Browser unterstützt das Audio-Tag nicht.
+    <audio id="beatPlayer" controls src="beat.mp3">
+      Ihr Browser unterstützt das Audio-Element nicht.
     </audio>
-  </section>
+    <input id="beatUpload" type="file" accept="audio/mpeg">
+  </div>
+
+  <script>
+    const voiceUpload = document.getElementById('voiceUpload');
+    const voicePlayer = document.getElementById('voicePlayer');
+    voiceUpload.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        voicePlayer.src = URL.createObjectURL(file);
+      }
+    });
+
+    const beatUpload = document.getElementById('beatUpload');
+    const beatPlayer = document.getElementById('beatPlayer');
+    beatUpload.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        beatPlayer.src = URL.createObjectURL(file);
+      }
+    });
+  </script>
 </body>
 </html>
